@@ -71,7 +71,7 @@ f)   "FEMBoundaryMassMatrix"         P1 Boundary Mass matrix. Suitable for Robin
      "FEMBounaryMassMatrixV"         Boundary conditions (tested, not used here)   
 
     
-3)   Quadratic FEM functions (Just prototipes!!!!)
+3)   Quadratic FEM functions (Just prototipes!!!! not implemented here)
 
 a)   "FEMStressMatrixP2"             P2 Mass and Stress matrices for Helmholtz 
      "FEMMassMatrixP2"               equation. 
@@ -146,7 +146,6 @@ c)  "spanner.mat"     a spanner-like object
 d)  "mallado6.mat"    a sort of pipe with a step in the middle. Suitable for Stokes
                       problem, for example. 
 e)  "SIgrid.mat"      a funny example :-)))
-f)  "Elephant.mat"    well, what can it be? an elephant, of course :-)))))
 g)  "pikachuGrid.mat" A rectangular grid with a hidden Pikachu [ :-O ]. 
                       Use PickDomain with indQ =1 or 2.
 h)  "PuncturedDomain" just a domain with a hole. T.eD and T.eN are not defined.
@@ -158,4 +157,4 @@ i)  "kinderEgg"       Just a surprising domain it is.  T.eD and T.eN are not def
 Use Load ***** to load the grid
 
 
-March 2021
+February 2023
