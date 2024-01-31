@@ -1,12 +1,16 @@
 function M = FEMMassMatrixP2V(T)
 
-% [S,M] = FEMMassMatrixP2V(T)
+% M = FEMMassMatrixP2(T)
 %
-% Compute the mass matrices for the Helmholtz equation
+% Compute the P2 (quadratic) FEM mass matrices for the Helmholtz equation:
+%
+% M(i,j) = \int_{\Omega} \varphi_i \varphi_j
+%
+% varphi_i the ith element of the Lagrange basis (i.e. the hat function).  
 %
 % Input
 %
-% T      : FE mesh struct
+% T      : P2 - FE mesh struct
 %
 % Output
 % 
@@ -15,14 +19,15 @@ function M = FEMMassMatrixP2V(T)
 % The following fields are used from T
 %
 % T.tr, T.detBk 
-%
-% Vectorized version
 % 
-% January 2021
+% The computation is done in the reference triangle via the affine change 
+% of variables. 
 %
-% by Víctor Domínguez
-
-% Matrices in the reference element
+% Vectorized version. 
+% 
+% by Victor Dominguez
+%
+% January 2024
 
 
     

@@ -1,23 +1,33 @@
 function M = FEMMassMatrixV(T)
 
-% [S,M] = FEMMassMatrixV(T)
+% M = FEMMassMatrix(T)
 %
-% Compute the mass matrices for the Helmholtz equation.
+% Compute the P1 (linear) FEM mass matrices for the Helmholtz equation:
 %
-% T      : triangulation
+% M(i,j) = \int_{\Omega} \varphi_i \varphi_j
 %
-% S      : stress matrix
+% varphi_i the ith element of the Lagrange basis (i.e. the hat function).  
+%
+% Input
+%
+% T      : FE mesh struct
+%
+% Output
+% 
 % M      : mass matrix
 %
-% The following fields are used from the struct T
+% The following fields are used from T
 %
-% T.tr
-% T.detBk 
-% T.c11, T.c12, Tc22
+% T.tr, T.detBk 
 % 
-% January 2021
+% The computation is done in the reference triangle via the affine change 
+% of variables. 
+% 
+% Full vectorized version. 
+% 
+% by Victor Dominguez
 %
-% A for-free implementation (Based on F.J. Sayas implementation)
+% January 2024
 
 % Matrices in the reference element
 

@@ -26,9 +26,7 @@
 %
 % Return a sparse matrix M so that val = M*u; 
 % 
-%
-% 
-% November 2016
+% January 2023
 
 function [val, coordB,indT,M] = EvalFemElement(T,u,coord,varargin)
 

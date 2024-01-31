@@ -2,12 +2,17 @@ function Load = FEMLoadVectorV(T,f)
 
 % Load = FEMLoadVectorV (T,f)
 %
-% Compute the load and traction vector
+% Compute the P1 (linear) FEM load vector 
+%
+% Load(i) = \int_{\Omega} f \varphi_i 
+%
+% varphi_i the ith element of the Lagrange basis (i.e. the hat function).  
 %
 % Input 
 %
-% T        : triangulation
-% f        : source function
+% T        : FE mesh struct
+% f        : scalar function for the load vector 
+%            with three arguments: x, y (x- and y- coord)and dom (domain) 
 %
 % Output
 %
@@ -19,11 +24,14 @@ function Load = FEMLoadVectorV(T,f)
 % T.coord
 % T.detBk
 % 
-% This is a vectorized implemented version
-% 
+% January 2024
+%
+% Vectorized version
+%
 % by Victor Dominguez 
-% 
-% January 2021
+
+% QuadratureRule: 2 x nQ & nQ x 1, nQ is the number of nodes
+% Rule on the reference triangle must be symmetric.  
 
 
 % Rule: 

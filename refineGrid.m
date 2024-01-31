@@ -4,31 +4,35 @@
 %
 % T2 and T1 is the full grid structure with the following fields:
 %
-% coord        :  nEl x 2, coordinates of the vertices
-% tr           :  nTr x 3, triangles of the grid
-% domain       :  nTr x 1, domain the triangle belongs to 
-% eD           :  nDir x 2, Dirichlet edges
-% eN           :  nNeu x 2, Neumann edges
+% coord        :  nEl   x 2, coordinates of the vertices
+% tr           :  nTr   x 3, triangles of the grid
+% domain       :  nTr   x 1, domain the triangle belongs to
+% eB           :  nBd   x 2, Boundary edges  
+% domBd        :  domBd x 1, domain of the boundary edge
+% eD           :  nDir  x 2, Dirichlet edges
+% eN           :  nNeu  x 2, Neumann edges
 % eI           :  inner edges
-% normal       :  neD x 2, non-unitary normal vector of each Neumann edge 
-% detBk        :  nTr x 1, determinants
+% normal       :  neD   x 2, non-unitary normal vector of each Neumann edge 
+% detBk        :  nTr   x 1, determinants
 % c11 
-% c12          :  nTr x 1, entries for the matrix C_K 
+% c12          :  nTr   x 1, entries for the matrix C_K 
 % c22  
 % b11 
-% b12          :  nTr x 1 entries for the matrix B_K
+% b12          :  nTr   x 1 entries for the matrix B_K
 % b21
 % b22
-% eD2tr        :  neD x 1  with the triangle containing each Dirichlet edge   
-% eN2tr        :  neN x 1  with the triangle containing each Neumann edge
-% eI2tr        :  neN x 2  triangles sharing each Dirichlet edge
-% tr2E         :  nTr x 3 the edges in each triangle. The values must
+% eD2tr        :  neD   x 1  with the triangle containing each Dirichlet edge   
+% eN2tr        :  neN   x 1  with the triangle containing each Neumann edge
+% eI2tr        :  neN   x 2  triangles sharing each Dirichlet edge
+% tr2E         :  nTr   x 3 the edges in each triangle. The values must
 %                 be read as follows: for any j in tr2E
 %                 if j <= neI,       is the edge j in eI 
 %                 if neI<j<=neI+neN  is the j-neI edge in eN
 %                 if neN  <j         is the j-neI-neN in edge of eD
 %
-% October 2017
+% January 2024
+%
+% by Victor Dominguez 
 
 function T2 = refineGrid(T) 
 
@@ -114,6 +118,14 @@ aux = full(mtrCon(ind));
 T2.eN = [T.eN(:,1) aux;...
           aux  T.eN(:,2) ];
 T2.normal = [T.normal; T.normal]/2;
+
+% Boundary edges
+ind = sub2ind(size(mtrCon),T.eB(:,1),T.eB(:,2));
+aux = full(mtrCon(ind));
+T2.eB = [T.eB(:,1) aux;...
+          aux  T.eB(:,2) ];
+
+T2.domB = kron([1;1],T.domB); 
  
 % In progress
 edges = []; 

@@ -11,8 +11,7 @@
 %
 % by Victor Dominguez
 %
-% January 2021
-
+% January 2024
 
 
 % solExact : exact solution (for, checking,  computing errors and so on)
@@ -48,7 +47,7 @@ gD       = @(x,y,domB) solExact(x,y)
 
 
 % Load Mesh from a script file
-opMesh = 1;
+opMesh = 4;
 loadMesh; 
 % Or load mesh here (in folder ./Grids )
 % load('./Grids/first.mat')
@@ -56,9 +55,9 @@ loadMesh;
 % For performing one uniform (RGB) refinement step, uncomment this line
 % Copy & paste for additional refinements
 %
-%FEMmesh = refineGrid(FEMmesh);
-%FEMmesh = refineGrid(FEMmesh);
-%FEMmesh = refineGrid(FEMmesh);
+FEMmesh = refineGrid(FEMmesh);
+FEMmesh = refineGrid(FEMmesh);
+FEMmesh = refineGrid(FEMmesh);
 
 %
 % Some meshes (uncoment your choice) :

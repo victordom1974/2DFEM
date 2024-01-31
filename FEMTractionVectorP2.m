@@ -2,7 +2,12 @@ function [Traction] = FEMTractionVectorP2(T,gN)
 
 % [Traction] = FEMTractionVectorP2(T,gN)
 %
-% Compute the Traction vector (Neumann condition).
+% Compute the P2 (quadratic) FEM traction vector (Neumann condition).
+%
+% Traction(i) = \int_{\Omega}  (g_N.n) \varphi_i
+%
+% varphi_i the ith element of the Lagrange basis (i.e. the hat function).  
+% n is the normal vector ("." is then the dot product)
 %
 % Input
 %
@@ -20,7 +25,7 @@ function [Traction] = FEMTractionVectorP2(T,gN)
 % T.coord
 % T.eN
 % 
-% January 2021
+% January 2024
 %
 % by Victor Dominguez
 

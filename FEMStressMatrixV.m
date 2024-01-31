@@ -1,20 +1,38 @@
-function [S,M] = FEMStressMatrixV(T)
+function S  = FEMStressMatrixV(T)
 
-% S=FEMmatricesV(T)
+% S = FEMSTressMatrixV(T)
 %
-% Compute the stress matrix  
+% Compute the P1 (linear) FEM stress matrix for the Helmholtz equation: 
 %
+% S(i,j) = \int_\Omega \nabla \varphi_i\cdot\nabla\varphi_j
+%
+% varphi_i the ith element of the Lagrange basis (i.e. the hat function).  
+%
+% Input
+%
+% T      : FE mesh struct
+%
+% Output
+% 
 % S      : stress matrix
 %
-% The following fields are used from the struct T
+% The following fields are used from T
 %
-% T.tr
-% T.detBk 
-% T.c11, T.c12, Tc22
+% T.detBk
+% T.c11, T.c12, T.c22
 % 
-% January 2021
+% The computation is done in the reference triangle via the affine change 
+% of variables. 
 %
-% A for-free implementation (Based on F.J. Sayas implementation)
+% The computation is done in the reference triangle via the affine change 
+% of variables.
+%
+% Vectorized version. 
+%
+% by Victor Dominguez
+% 
+% January 2024
+%
 
 % Matrices in the reference element
 

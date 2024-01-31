@@ -1,8 +1,8 @@
 function [B1,B2]=FEMmatricesP2P1(T)
 
-% [S,M]=FEMmatricesP2P1(T,f,lambda)
+% [B1,B2]=FEMmatricesP2P1(T,f,lambda)
 %
-% Compute matrix B1, B2 for stokes equation (Taylorhood elements)
+% Compute matrix B1, B2 for stokes equation (Taylor-Hood elements)
 %
 % T      : P2 triangulation constructed from a P1 triangulation
 %
@@ -13,7 +13,7 @@ function [B1,B2]=FEMmatricesP2P1(T)
 %
 % T.b11, T.b12, T.b21, T.b22
 % 
-% January 2021
+% January 2024
 %
 % by Victor Dominguez 
 

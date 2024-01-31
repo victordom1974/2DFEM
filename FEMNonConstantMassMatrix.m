@@ -1,8 +1,12 @@
-function M = FEMNonConstantMassMatrix(T,n)
+function M = FEMNonConstantMassMatrix(T,c)
 
-% M = FEMNonConstantMassMatrix(T,n)
+% M = FEMNonConstantMassMatrix(T,c)
 %
 % Compute the mass matrices for the Helmholtz equation
+%
+% M(i,j) = \int_{\Omega} c(x) \varphi_i(x) \varphi_j(x)
+%
+% varphi_i the ith element of the Lagrange basis (i.e. the hat function).  
 %
 % Input
 %
@@ -13,20 +17,13 @@ function M = FEMNonConstantMassMatrix(T,n)
 % 
 % M      : mass matrix
 %
-% with 
-%
-% \int_{K} n \varphi_i \varphi_j 
-%
-% varphi_i -> hat function
-%
 % The following fields are used from T
 %
-% T.tr, T.detBk 
+% T.tr, T.coord, T.detBk, 
 % 
-% January 2021
+% by Victor Dominguez
 %
-
-% Matrices in the reference element
+% January 2024
 
 % Quadrature rule in cartesian coordinates
 
@@ -53,8 +50,8 @@ function M = FEMNonConstantMassMatrix(T,n)
  weights = [1/6; 1/6; 1/6] ; % nQ x 1 matrix 
 
 nQ = length(weights);
-nodesBar  = [1-nodes(1,:)-nodes(2,:); nodes];
-P1Values  =  nodesBar;
+nodesBar = [1-nodes(1,:)-nodes(2,:); nodes];
+P1Values =  nodesBar;
 P1Values = kron(P1Values,ones(3,1)).*kron(ones(3,1),P1Values);
 
 % P1Values is 9 x nQ with the values of N_iN_j (by rows) in the nQ quad
@@ -71,9 +68,9 @@ for j = 1:nTr
     pxLocal  = pLocal(:,1).';
     pyLocal  = pLocal(:,2).';
     % Computing the integrals
-    nLocal   = n(pxLocal,pyLocal,T.domain(j));
+    cLocal   = c(pxLocal,pyLocal,T.domain(j));
     aux      = zeros(3); 
-    aux(:)   = T.detBk(j)*(P1Values.*nLocal)*weights;  
+    aux(:)   = T.detBk(j)*(P1Values.*cLocal)*weights;  
     % Storing the results 
     M(indLocal,indLocal) = M(indLocal,indLocal) + aux;
 end

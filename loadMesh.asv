@@ -17,12 +17,20 @@ switch(opMesh)
     case(2)
         load second          % : Mixed conditions
     case(3)
-        load PuncturedDomain  
-        % A rather complicated domain: a dodecagon
-        % with square hole
-        % Mixed condition
-       
-       
+        load PuncturedDomain  % : A rather complicated domain: a dodecagon
+        %   (1901-1912) with a cuadrangular hole
+        %   (1801-1804).
+        %   Some precalculations are needed here
+        Dir  = 1901:1912;     % Setting Dirichlet edges
+        Neum = 1801:1804;     % Setting Neumann edges
+        indD = logical(0);
+        for j = 1:Dir
+            indD = indD | (FEMmesh.domB==j);
+        end
+        FEMmesh.eD = FEMmesh.eB(indD,:);
+        FEMmesh.eN = FEMmesh.eB;
+        FEMmesh.eN(indD,:)     = [];     % Remove Neumann elements...
+        FEMmesh.normal(indD,:) = [];     % and the normal vectors.
     case(4)
         load kinderEgg
         % Pure Dirichlet.
@@ -31,8 +39,8 @@ switch(opMesh)
         %FEMmesh.normal= zeros(0,2);
         
         % Pure Neumann.
-        %FEMmesh.eD = zeros(0,2);
-        %FEMmesh.eN = FEMmesh.eB;
+        FEMmesh.eD = zeros(0,2);
+        FEMmesh.eN = FEMmesh.eB;
         
         % Redefine the load vector to find what is hidden
         
@@ -54,7 +62,7 @@ switch(opMesh)
         
     case(5)
         % Your choice
-        %load pikachuGrid.mat,         PickDomain;
-        load BabyYoda.mat
+        load pikachuGrid.mat,         PickDomain;
+        %load BabyYoda.mat
         %load spanner
 end 

@@ -2,7 +2,12 @@ function [Tr] = FEMTractionVectorV(T,gN)
 
 % [Load,Traction] = FEMTractionVectorV(T,gN)
 %
-% Compute the load and traction vector
+% Compute the P1 (linear) FEM traction vector (Neumann condition).
+%
+% Traction(i) = \int_{\Omega}  (g_N.n) \varphi_i
+%
+% varphi_i the ith element of the Lagrange basis (i.e. the hat function).  
+% n is the normal vector ("." is then the dot product)
 %
 % Input
 %
@@ -21,7 +26,7 @@ function [Tr] = FEMTractionVectorV(T,gN)
 % T.eN
 % T.normal
 %
-% This is a vectorized implemented version
+% Vectorized version
 %
 % by Victor Dominguez
 %

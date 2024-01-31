@@ -2,12 +2,17 @@ function [Load]=FEMLoadVectorP2(T,f)
 
 % Load  = FEMLoadVectorP2(T,f)
 %
-% Compute the traction vector (Neumann conditions) 
+% Compute the P2 (quadratic) FEM load vector 
+%
+% Load(i) = \int_{\Omega} f \varphi_i 
+%
+% \varphi_i the ith element of the Lagrange basis (i.e. the hat function).  
 %
 % Input 
 %
 % T        : FE mesh struct
 % f        : scalar function for the load vector 
+%            with three arguments: x, y (x- and y- coord)and dom (domain)
 %
 % Output
 %
@@ -19,7 +24,7 @@ function [Load]=FEMLoadVectorP2(T,f)
 % T.coord
 % T.detBk
 % 
-% January 2021
+% January 2024
 %
 % by Victor Dominguez 
 

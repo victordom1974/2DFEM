@@ -2,7 +2,7 @@ function Mb = FEMMassBoundaryMatrixV(T)
 
 % M = FEMMassBoundaryMatrix(T)
 %
-% Compute the boundary mass matrices 
+% Compute the P1 (linear) FEM boundary mass matrices for the Helmholtz equation: 
 %
 % Input
 %
@@ -16,10 +16,11 @@ function Mb = FEMMassBoundaryMatrixV(T)
 %
 % T.eB, T.detBk 
 % 
+% Vectorized version
+% 
 % by Victor Dominguez
 %
-% January 2021
-% NOT WORKING YET
+% (TO BE TESTED) January 2024
 
 % Matrices in the reference element
 

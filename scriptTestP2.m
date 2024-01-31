@@ -64,7 +64,7 @@ FEMmesh = refineGrid(FEMmesh);
 
 % Prepare the P2 grid
 
-FEMmesh2 = prepareGridPk(FEMmesh,2)
+FEMmesh2 = prepareGridPk(FEMmesh,2);
 
 
 % PARAMETERS

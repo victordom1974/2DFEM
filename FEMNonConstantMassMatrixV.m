@@ -1,32 +1,31 @@
-function M = FEMNonConstantMassMatrixV(T,n)
+function M = FEMNonConstantMassMatrix(T,c)
 
-% M = FEMNonConstantMassMatrixV(T,n)
+% M = FEMNonConstantMassMatrix(T,c)
 %
 % Compute the mass matrices for the Helmholtz equation
+%
+% M(i,j) = \int_{\Omega} c(x) \varphi_i(x) \varphi_j(x)
+%
+% varphi_i the ith element of the Lagrange basis (i.e. the hat function).  
 %
 % Input
 %
 % T      : FE mesh struct
 % n      : scalar function
-%
+% 
 % Output
 % 
 % M      : mass matrix
 %
-% with 
-%
-% \int_{K} n \varphi_i \varphi_j 
-%
-% varphi_i -> hat function
-%
-% VECTORIZED VERSION 
-%
 % The following fields are used from T
 %
-% T.tr, T.detBk 
-% 
-% January 2021
+% T.tr, T.coord, T.detBk, 
 %
+% Vectorized version
+% 
+% by Victor Dominguez
+%
+% January 2024
 
 % Matrices in the reference element
 
@@ -72,10 +71,10 @@ px = px(T.tr)*nodesBar';   py = py(T.tr)*nodesBar';
 
 indT = px.^0.*T.domain; 
 
-nvalues = T.detBk(:).*(n(px,py,indT).*weights');
+cvalues = T.detBk(:).*(c(px,py,indT).*weights');
 clear px py indT  
 
-aux = P1Values*nvalues'; 
+aux = P1Values*cvalues'; 
 indi = T.tr;
 indj = kron(ones(3,1),indi');
 indi = kron(indi',ones(3,1));
@@ -83,8 +82,5 @@ indi = indi(:);
 indj = indj(:);  
 
 M   = sparse(indi,indj, aux(:), nNodes,nNodes);
-% 9 x nQ matrix now:
- 
-          
      
 return
